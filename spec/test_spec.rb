@@ -38,7 +38,7 @@ describe "Automação Bionexo", :all_tests do
     end
 
     it "Inputs e textos", :input_fields do
-        puts "acessando a pagina de INputs e Text fields"
+        puts "acessando a pagina de Inputs e Text fields"
         visit "/buscaelementos/inputsetextfield"
         puts page.title
         expect(page.title).to eql "Automação com Batista" 
@@ -50,6 +50,27 @@ describe "Automação Bionexo", :all_tests do
         btnvoltar = find(:xpath, '/html/body/div[2]/div[2]/div[2]/form/div[6]/div/a')
         btnvoltar.click
         #binding.pry
+    end
+
+    it "Radio e Checkbox", :radiocheckbox do
+        puts "acessando a pagina de Dropdown e Select"
+        visit "buscaelementos/radioecheckbox"
+        puts page.title
+        expect(page.title).to eql "Automação com Batista"
+        radiored = find('label', :text => 'Red')
+        radiored.click
+        radiogreen = find('label', :text => 'Green')
+        radiogreen.click
+        checkgray = find('label', :text => 'Grey')
+        checkgray.click
+        checkblack = find('label', :text => 'black')
+        checkblack.click
+        #binding.pry
+    end
+    after(:each) do |e|
+        nomecenario = e.description.gsub(/[^A-Za-z0-9 ]/, '').tr(' ', '_')
+        puts nomecenario
+        page.save_screenshot('log/' + nomecenario + '.png')
     end
 end
 
